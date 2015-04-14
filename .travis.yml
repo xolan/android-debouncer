@@ -1,0 +1,8 @@
+language: android
+android:
+  components:
+    - build-tools-19.1.0
+    - extra-android-support
+    - android-19
+  script:
+    - ./gradlew clean build connectedCheck
