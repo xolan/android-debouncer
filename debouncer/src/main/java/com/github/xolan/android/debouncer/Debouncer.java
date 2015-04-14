@@ -20,7 +20,7 @@ public class Debouncer {
     private final Handler handler;
 
     private Debouncer() {
-        runnables = new HashMap<>();
+        runnables = new HashMap<String, Runnable>();
         handler = new Handler(Looper.getMainLooper());
     }
 

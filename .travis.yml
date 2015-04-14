@@ -1,8 +1,9 @@
 language: android
 android:
   components:
-    - build-tools-19.1.0
+    - build-tools-21.1.2
+    - addon-google_apis-google-21
     - extra-android-support
-    - android-19
+    - android-21
   script:
-    - ./gradlew clean build connectedCheck
+    - ./gradlew clean build test
