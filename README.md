@@ -9,7 +9,7 @@
 Debouncer.debounce("something", new Runnable() {
     @Override
     public void run() {
-        // Will not be ran due to de call below
+        // Will not be ran due to the call below
         ...
     }
 }, 250);
