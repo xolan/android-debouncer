@@ -1,7 +1,7 @@
 # android-debouncer
 
-[![Build Status](https://travis-ci.org/xolan/android-debouncer.svg?branch=master)](https://travis-ci.org/xolan/android-debouncer)
-
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/xolan/android-debouncer/master/LICENSE)
+[![Master](https://travis-ci.org/xolan/android-debouncer.svg?branch=master)](https://travis-ci.org/xolan/android-debouncer.svg?branch=master)
 ## Usage
 
 ```java
