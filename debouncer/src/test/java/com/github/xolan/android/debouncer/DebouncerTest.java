@@ -2,12 +2,14 @@ package com.github.xolan.android.debouncer;
 
 import android.util.Log;
 
+import org.junit.Before;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,7 +24,6 @@ public class DebouncerTest {
 
         public Counter() {
             count = new AtomicInteger(0);
-
         }
 
         public void increment() {
@@ -36,6 +37,12 @@ public class DebouncerTest {
         public int asInt() {
             return count.intValue();
         }
+    }
+
+    @Before
+    public void setUp() {
+        ShadowLog.stream = System.out;
+        Log.i(TAG, "Setting up...");
     }
 
     /**
@@ -54,7 +61,7 @@ public class DebouncerTest {
         final Runnable r1 = new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, String.format("Runnable with identifier \"%s\" ran", identifier));
+                Log.i(TAG, String.format("Runnable with identifier \"%s\" ran", identifier));
                 counter.increment();
             }
         };
@@ -70,7 +77,7 @@ public class DebouncerTest {
             Debouncer.debounce(identifier, r1, 250);
             Robolectric.idleMainLooper(100);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
         }
         try {
             Thread.sleep(100, 0);
@@ -78,7 +85,7 @@ public class DebouncerTest {
             Debouncer.debounce(identifier, r1, 250);
             Robolectric.idleMainLooper(100);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
         }
         try {
             Thread.sleep(500, 0);
@@ -86,7 +93,7 @@ public class DebouncerTest {
             Assert.assertFalse("Failed to debounce. Counter was " + counter.asInt(), counter.asInt() == 3);
             Assert.assertTrue("Failed to debounce. Counter was " + counter.asInt() + ". Expected 1", counter.asInt() == 1);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
         }
     }
 
