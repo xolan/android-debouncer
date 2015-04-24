@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.0'
         classpath 'org.robolectric:robolectric-gradle-plugin:1.0.1'
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -17,4 +18,47 @@ allprojects {
     repositories {
         jcenter()
     }
+}
+
+apply plugin: 'com.bmuschko.nexus'
+
+modifyPom {
+    project {
+        name 'android-debouncer'
+        description 'Simple debouncer for Android Runnables'
+        url 'https://github.com/xolan/android-debouncer'
+        inceptionYear '2015'
+
+        scm {
+            url 'https://github.com/xolan/android-debouncer'
+            connection 'scm:https://xolan@github.com/xolan/android-debouncer.git'
+            developerConnection 'scm:git://github.com/xolan/android-debouncer.git'
+        }
+
+        licenses {
+            license {
+                name 'The MIT License (MIT)'
+                url 'https://raw.githubusercontent.com/xolan/android-debouncer/master/LICENSE'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'xolan'
+                name 'Jonas Svarvaa'
+                email 'jonassvarvaa@gmail.com'
+            }
+        }
+    }
+}
+
+extraArchive {
+    sources = true
+    tests = true
+    javadoc = false
+}
+
+nexus {
+    sign = true
 }
